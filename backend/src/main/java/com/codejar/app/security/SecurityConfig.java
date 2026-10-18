@@ -50,9 +50,16 @@ public class SecurityConfig {
             )
 
             .authorizeHttpRequests(auth -> auth
+
+                // Public endpoints
                 .requestMatchers("/", "/error").permitAll()
+                .requestMatchers("/api/languages").permitAll()
                 .requestMatchers("/api/auth/**").permitAll()
+
+                // Admin endpoints
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
+
+                // All remaining endpoints require authentication
                 .anyRequest().authenticated()
             )
 
@@ -87,19 +94,13 @@ public class SecurityConfig {
             )
         );
 
-        configuration.setAllowedHeaders(
-            List.of("*")
-        );
-
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source =
             new UrlBasedCorsConfigurationSource();
 
-        source.registerCorsConfiguration(
-            "/**",
-            configuration
-        );
+        source.registerCorsConfiguration("/**", configuration);
 
         return source;
     }
