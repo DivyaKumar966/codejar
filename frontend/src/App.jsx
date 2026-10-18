@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 
-const API = 'http://localhost:8080/api'
+const API = 'https://codejar-production.up.railway.app/api'
 const STARTERS = {
   JAVA: `import java.util.Scanner;
 
